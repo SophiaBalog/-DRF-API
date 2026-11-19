@@ -2,11 +2,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
-
+from bookstore.auth_views import LoginView, LogoutView
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/v1/", include("bookstore.urls")),
     # Маршрути автентифікації вашого варіанта додайте тут: /api/v1/auth/...
+    path("api/v1/auth/token/", LoginView.as_view(), name="token-login"),
+    path("api/v1/auth/token/logout/", LogoutView.as_view(), name="token-logout"),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
