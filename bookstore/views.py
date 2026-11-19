@@ -14,7 +14,7 @@ class AuthorViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class BookViewSet(viewsets.ModelViewSet):
-    queryset = Book.objects.all()
+    queryset = Book.objects.select_related("author", "owner")
     serializer_class = BookSerializer
     permission_classes = [IsEduUserOrReadOnly]
     filter_backends = [filters.SearchFilter, filters.OrderingFilter]
